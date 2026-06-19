@@ -34,6 +34,10 @@ app.use('/api/banners', bannersRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/stats', statsRoutes);
 
+app.get('/health', (_req, res) => {
+  res.json({ status: 'ok', db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected', uptime: Math.floor(process.uptime()) });
+});
+
 app.use(errorHandler);
 
 mongoose
